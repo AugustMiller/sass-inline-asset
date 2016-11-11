@@ -1,6 +1,7 @@
 var fs = require('fs'),
     path = require('path'),
-    types = require('node-sass').types;
+    types = require('node-sass').types,
+    mime = require('mime');
 
 module.exports = function(options) {
   options = options || {};
@@ -8,15 +9,20 @@ module.exports = function(options) {
   var base = options.base || process.cwd();
 
   return {
-    'inline-svg($file)': function(file) {
-      var relativePath = './' + file.getValue();
-      var filePath = path.resolve(base, relativePath);
-      var data = fs.readFileSync(filePath);
+    'inline-asset($file)': function(file) {
+      var relativePath,
+          filePath,
+          extension,
+          data,
+          buffer;
 
-      var buffer = new Buffer(data);
+      relativePath = './' + file.getValue();
+      filePath = path.resolve(base, relativePath);
+      ext = path.extname(filePath);
+      data = fs.readFileSync(filePath);
+      buffer = new Buffer(data);
 
-      var str = '"data:image/svg+xml;base64,' + buffer.toString('base64') + '"';
-      return types.String(str);
+      return types.String('"data:' + mime.lookup(extension) + ';base64,' + buffer.toString('base64') + '"');
     }
   };
 };

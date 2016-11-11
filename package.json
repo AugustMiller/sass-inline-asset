@@ -1,7 +1,7 @@
 {
-  "name": "sass-inline-svg",
-  "version": "0.0.1",
-  "description": "In-line your static SVG assets ",
+  "name": "sass-inline-asset",
+  "version": "0.0.2",
+  "description": "In-line your static assets ",
   "main": "index.js",
   "scripts": {},
   "author": "August Miller",

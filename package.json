@@ -1,0 +1,12 @@
+{
+  "name": "sass-inline-svg",
+  "version": "0.0.1",
+  "description": "In-line your static SVG assets ",
+  "main": "index.js",
+  "scripts": {},
+  "author": "August Miller",
+  "license": "MIT",
+  "dependencies": {
+    "node-sass": "^3.3.3"
+  }
+}

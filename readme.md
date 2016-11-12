@@ -13,7 +13,7 @@ All we're doing is:
 3. Inferring the mime-type from the file's extension;
 4. Encoding the asset as `base64`.
 
-Other asset-inlineing libraries seemed to be opinionated about which file types could be passed, and had special logic for each.
+Other asset-inlining libraries seemed to be opinionated about which file types could be passed, and had special logic for each.
 
 We're not making assumptions, but _are_ expressing an opinion about the encoding type. Even though some formats (looking at you, SVG) can be more efficiently transmitted as url-encoded XML, some browsers have trouble rendering it. `base64` has been more reliable, and we've adopted it here, despite its inefficiencies.
 
@@ -42,6 +42,8 @@ return gulp.src('path/to/your/stylesheet.sass')
   }).on('error', sass.logError))
   .pipe(gulp.dest('path/to/your/built/stylesheet'));
 ```
+
+The library is greedy, in that you'll need to merge/extend it's returned object with any other Sass functions you're using. This appears to be the only way we can own the function signature it needs for its key.
 
 In any of the sass files downstream from your `src`, simply call the function. Note that it's only useful inside a standard CSS `url()` call:
 
